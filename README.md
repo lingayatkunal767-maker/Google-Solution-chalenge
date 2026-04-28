@@ -20,6 +20,27 @@ MATCH_SCORE = (SkillFit × 0.40) + (Availability × 0.30) + (Location × 0.20) +
 
 ---
 
+## 🛠️ Tech Stack
+
+**Frontend (Web & Mobile)**
+* **React 18**: Core UI library for both coordinator dashboard and volunteer app.
+* **Axios**: HTTP client for API requests.
+* **CSS3**: Custom styles (globals.css, app.css).
+
+**Backend**
+* **Node.js (18+)**: JavaScript runtime environment.
+* **Express.js**: Backend web framework for REST APIs.
+* **Firebase Cloud Functions**: Serverless execution environment.
+* **Jest**: Unit testing framework.
+
+**Database & Infrastructure**
+* **Firebase Firestore**: NoSQL document database for realtime synchronization.
+* **Firebase Auth**: User authentication securely managed by Google.
+* **Firebase Cloud Messaging (FCM)**: Real-time push notifications.
+* **Docker**: Containerization via `docker-compose.yml`.
+
+---
+
 ## 🏗️ Architecture
 
 ```
