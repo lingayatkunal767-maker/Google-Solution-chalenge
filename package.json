@@ -10,9 +10,10 @@
   ],
   "scripts": {
     "dev:backend": "cd backend && npm run dev",
-    "dev:dashboard": "cd coordinator-dashboard && npm start",
+    "dev:dashboard": "cd backend/coordinator-dashboard && npm start",
+    "dev:emulators": "cd backend && npx firebase-tools emulators:start --project demo-volunteermatch",
     "dev:app": "cd volunteer-app && npm start",
-    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:dashboard\"",
+    "dev": "concurrently \"npm run dev:emulators\" \"npm run dev:backend\" \"npm run dev:dashboard\"",
     "test": "cd backend && npm test",
     "install:all": "cd backend && npm install && cd ../coordinator-dashboard && npm install && cd ../volunteer-app && npm install",
     "build:dashboard": "cd coordinator-dashboard && npm run build",

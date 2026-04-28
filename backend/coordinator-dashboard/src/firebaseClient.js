@@ -32,7 +32,7 @@ export const messaging = typeof window !== 'undefined' ? getMessaging(app) : nul
 // Connect to emulators in development by default (unless explicitly disabled)
 if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_USE_EMULATORS !== 'false') {
   connectAuthEmulator(auth, 'http://localhost:9099', { disableWarnings: true });
-  connectFirestoreEmulator(db, 'localhost', 8080);
+  connectFirestoreEmulator(db, 'localhost', 8082);
   console.log('🔧 Using Firebase Emulators');
 }
 

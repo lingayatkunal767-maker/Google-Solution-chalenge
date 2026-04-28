@@ -10,6 +10,7 @@ import VolunteersPage from './pages/VolunteersPage';
 import AnalyticsPage from './pages/AnalyticsPage';
 import LeaderboardPage from './pages/LeaderboardPage';
 import LoginPage from './pages/LoginPage';
+import LandingPage from './pages/LandingPage';
 import Sidebar from './components/Sidebar';
 
 // Auth Context
@@ -18,11 +19,8 @@ export const useAuth = () => useContext(AuthContext);
 
 function App() {
   const [theme, setTheme] = useState('dark');
-  // Demo mode: always logged in
-  const [user] = useState({
-    uid: 'coord_demo', email: 'coordinator@ngo.org',
-    displayName: 'Sarah Coordinator', role: 'coordinator',
-  });
+  // Demo mode: null initially so it goes to landing
+  const [user, setUser] = useState(null);
 
   const toggleTheme = () => setTheme(t => (t === 'dark' ? 'light' : 'dark'));
 
@@ -30,11 +28,11 @@ function App() {
     <AuthContext.Provider value={{ user }}>
       <div data-theme={theme} style={{ minHeight: '100vh', background: 'var(--bg-primary)' }}>
         <Router>
+          {user ? (
           <div className="app-layout">
-            {user && <Sidebar theme={theme} onToggleTheme={toggleTheme} user={user} />}
+            <Sidebar theme={theme} onToggleTheme={toggleTheme} user={user} />
             <main className="main-content">
               <Routes>
-                <Route path="/login" element={<LoginPage />} />
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/needs" element={<NeedsPage />} />
                 <Route path="/volunteers" element={<VolunteersPage />} />
@@ -44,6 +42,13 @@ function App() {
               </Routes>
             </main>
           </div>
+          ) : (
+            <Routes>
+                <Route path="/" element={<LandingPage />} />
+                <Route path="/login" element={<LoginPage onLogin={setUser}/>} />
+                <Route path="*" element={<Navigate to="/" />} />
+            </Routes>
+          )}
         </Router>
       </div>
     </AuthContext.Provider>

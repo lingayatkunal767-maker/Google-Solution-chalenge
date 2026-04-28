@@ -7,6 +7,107 @@
     <meta name="description" content="VolunteerMatch AI - Coordinator Dashboard" />
     <title>VolunteerMatch AI</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "inverse-primary": "#005ac2",
+                        "surface-tint": "#adc6ff",
+                        "background": "#0b1326",
+                        "outline": "#8c909f",
+                        "primary-container": "#4d8eff",
+                        "on-secondary": "#213145",
+                        "secondary": "#b7c8e1",
+                        "tertiary-container": "#00a572",
+                        "primary-fixed": "#d8e2ff",
+                        "on-surface": "#dae2fd",
+                        "on-primary-container": "#00285d",
+                        "tertiary-fixed": "#6ffbbe",
+                        "on-secondary-fixed": "#0b1c30",
+                        "surface-variant": "#2d3449",
+                        "surface-container-low": "#131b2e",
+                        "surface-bright": "#31394d",
+                        "on-surface-variant": "#c2c6d6",
+                        "inverse-surface": "#dae2fd",
+                        "surface-container-lowest": "#060e20",
+                        "on-primary-fixed": "#001a42",
+                        "primary": "#adc6ff",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "on-error-container": "#ffdad6",
+                        "inverse-on-surface": "#283044",
+                        "error": "#ffb4ab",
+                        "surface-dim": "#0b1326",
+                        "tertiary": "#4edea3",
+                        "surface": "#0b1326",
+                        "tertiary-fixed-dim": "#4edea3",
+                        "secondary-container": "#3a4a5f",
+                        "primary-fixed-dim": "#adc6ff",
+                        "on-tertiary": "#003824",
+                        "on-tertiary-fixed-variant": "#005236",
+                        "error-container": "#93000a",
+                        "on-tertiary-container": "#00311f",
+                        "on-error": "#690005",
+                        "on-background": "#dae2fd",
+                        "on-primary-fixed-variant": "#004395",
+                        "on-secondary-container": "#a9bad3",
+                        "surface-container": "#171f33",
+                        "surface-container-highest": "#2d3449",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "outline-variant": "#424754",
+                        "on-primary": "#002e6a",
+                        "surface-container-high": "#222a3d",
+                        "secondary-fixed": "#d3e4fe",
+                        "on-tertiary-fixed": "#002113"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "sm": "8px",
+                        "margin": "20px",
+                        "xs": "4px",
+                        "xl": "32px",
+                        "base": "4px",
+                        "md": "16px",
+                        "gutter": "16px",
+                        "lg": "24px"
+                    },
+                    fontFamily: {
+                        "body-sm": ["Manrope"],
+                        "body-md": ["Manrope"],
+                        "display-lg": ["Manrope"],
+                        "label-caps": ["Manrope"],
+                        "title-sm": ["Manrope"],
+                        "headline-md": ["Manrope"]
+                    },
+                    fontSize: {
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "title-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
