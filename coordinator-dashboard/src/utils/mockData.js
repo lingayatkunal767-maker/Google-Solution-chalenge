@@ -1,0 +1,155 @@
+// src/utils/mockData.js
+export const mockNeeds = [
+  {
+    id: 'need_001', title: 'Emergency Medical Assistance',
+    description: 'Provide first aid support at community center after accident.',
+    requiredSkills: ['medical', 'first-aid', 'emergency-response'],
+    location: { lat: 18.5204, lng: 73.8567, address: 'Pune Community Center, Shivajinagar' },
+    urgency: 'immediate', estimatedHours: 4, category: 'medical',
+    status: 'open', createdBy: 'coord_001',
+    createdAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
+  },
+  {
+    id: 'need_002', title: 'Food Distribution Drive',
+    description: 'Help distribute meals to 500+ families in low-income area.',
+    requiredSkills: ['logistics', 'driving', 'physical-labor'],
+    location: { lat: 18.4916, lng: 73.8589, address: 'Hadapsar, Pune' },
+    urgency: 'urgent', estimatedHours: 6, category: 'food-aid',
+    status: 'assigned', createdBy: 'coord_001',
+    createdAt: new Date(Date.now() - 5 * 60 * 60 * 1000).toISOString(),
+    assignedTo: 'vol_002',
+  },
+  {
+    id: 'need_003', title: 'Children Education Support',
+    description: 'Teach basic math and reading to underprivileged children.',
+    requiredSkills: ['teaching', 'counseling', 'child-care'],
+    location: { lat: 18.5596, lng: 73.7761, address: 'Pimpri, Pune' },
+    urgency: 'planned', estimatedHours: 3, category: 'education',
+    status: 'open', createdBy: 'coord_002',
+    createdAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
+  },
+  {
+    id: 'need_004', title: 'Flood Relief Operations',
+    description: 'Urgent rescue and relief operations for flood-affected families.',
+    requiredSkills: ['rescue', 'swimming', 'logistics', 'medical'],
+    location: { lat: 18.6148, lng: 73.8766, address: 'Bhosari, Pune' },
+    urgency: 'immediate', estimatedHours: 8, category: 'disaster-relief',
+    status: 'open', createdBy: 'coord_001',
+    createdAt: new Date(Date.now() - 30 * 60 * 1000).toISOString(),
+  },
+  {
+    id: 'need_005', title: 'Mental Health Counseling',
+    description: 'Provide counseling sessions to survivors of domestic violence.',
+    requiredSkills: ['counseling', 'psychology', 'communication'],
+    location: { lat: 18.5179, lng: 73.8554, address: 'Deccan, Pune' },
+    urgency: 'urgent', estimatedHours: 2, category: 'mental-health',
+    status: 'completed', createdBy: 'coord_002',
+    createdAt: new Date(Date.now() - 48 * 60 * 60 * 1000).toISOString(),
+    completedAt: new Date(Date.now() - 40 * 60 * 60 * 1000).toISOString(),
+  },
+];
+
+export const mockVolunteers = [
+  {
+    id: 'vol_001', name: 'Ramesh Patel', phone: '+919876543210',
+    location: { lat: 18.5204, lng: 73.8567, address: 'Shivajinagar, Pune' },
+    skills: ['medical', 'first-aid', 'emergency-response', 'counseling'],
+    availability: { weekdays: true, weekends: true, flexibleHours: [{ startTime: '9:00', endTime: '17:00' }] },
+    rating: 4.8, responseRate: 94.5, completedTasks: 23, pastTasks: ['need_005'],
+    createdAt: '2026-01-15T10:00:00Z',
+  },
+  {
+    id: 'vol_002', name: 'Priya Sharma', phone: '+919898765432',
+    location: { lat: 18.4916, lng: 73.8589, address: 'Hadapsar, Pune' },
+    skills: ['teaching', 'counseling', 'child-care', 'communication'],
+    availability: { weekdays: false, weekends: true, flexibleHours: [] },
+    rating: 4.6, responseRate: 88.0, completedTasks: 17, pastTasks: [],
+    createdAt: '2026-02-01T10:00:00Z',
+  },
+  {
+    id: 'vol_003', name: 'Arjun Nair', phone: '+919765432109',
+    location: { lat: 18.5290, lng: 73.8478, address: 'Kothrud, Pune' },
+    skills: ['logistics', 'driving', 'physical-labor', 'rescue'],
+    availability: { weekdays: true, weekends: false, flexibleHours: [{ startTime: '6:00', endTime: '10:00' }] },
+    rating: 4.2, responseRate: 76.5, completedTasks: 11, pastTasks: [],
+    createdAt: '2026-02-20T10:00:00Z',
+  },
+  {
+    id: 'vol_004', name: 'Kavya Reddy', phone: '+919654321098',
+    location: { lat: 18.5596, lng: 73.7761, address: 'Pimpri, Pune' },
+    skills: ['medical', 'psychology', 'counseling', 'first-aid'],
+    availability: { weekdays: true, weekends: true, flexibleHours: [{ startTime: '14:00', endTime: '20:00' }] },
+    rating: 4.9, responseRate: 97.0, completedTasks: 31, pastTasks: ['need_005'],
+    createdAt: '2026-01-05T10:00:00Z',
+  },
+  {
+    id: 'vol_005', name: 'Suresh Kumar', phone: '+919543210987',
+    location: { lat: 18.4527, lng: 73.8508, address: 'Bibwewadi, Pune' },
+    skills: ['teaching', 'driving', 'logistics', 'communication'],
+    availability: { weekdays: true, weekends: true, flexibleHours: [] },
+    rating: 4.1, responseRate: 82.0, completedTasks: 8, pastTasks: [],
+    createdAt: '2026-03-10T10:00:00Z',
+  },
+];
+
+export const mockAnalytics = {
+  overview: {
+    totalNeeds: 47, openNeeds: 12, completedNeeds: 31,
+    completionRate: 66, totalVolunteers: 124, totalMatches: 89,
+    successfulMatches: 71, successRate: 80, avgMatchScore: 76.4,
+  },
+  categoryDistribution: {
+    'medical': 14, 'food-aid': 11, 'education': 9,
+    'disaster-relief': 7, 'mental-health': 6,
+  },
+  topVolunteers: [
+    { name: 'Kavya Reddy', completedTasks: 31, rating: 4.9, responseRate: 97 },
+    { name: 'Ramesh Patel', completedTasks: 23, rating: 4.8, responseRate: 94.5 },
+    { name: 'Priya Sharma', completedTasks: 17, rating: 4.6, responseRate: 88 },
+    { name: 'Arjun Nair', completedTasks: 11, rating: 4.2, responseRate: 76.5 },
+    { name: 'Suresh Kumar', completedTasks: 8, rating: 4.1, responseRate: 82 },
+  ],
+  monthlyTrend: [
+    { month: 'Nov', needs: 5, completions: 3 },
+    { month: 'Dec', needs: 7, completions: 5 },
+    { month: 'Jan', needs: 9, completions: 7 },
+    { month: 'Feb', needs: 8, completions: 6 },
+    { month: 'Mar', needs: 11, completions: 6 },
+    { month: 'Apr', needs: 7, completions: 4 },
+  ],
+  skillDemand: [
+    { skill: 'medical', count: 18 }, { skill: 'logistics', count: 14 },
+    { skill: 'counseling', count: 12 }, { skill: 'teaching', count: 10 },
+    { skill: 'first-aid', count: 9 }, { skill: 'driving', count: 7 },
+  ],
+};
+
+export const mockTopMatches = [
+  {
+    id: 'match_001', volunteerId: 'vol_001', volunteerName: 'Kavya Reddy',
+    score: 91.5, volunteerRating: 4.9, completedTasks: 31, responseRate: 97,
+    volunteerSkills: ['medical', 'first-aid', 'emergency-response'],
+    volunteerLocation: { address: 'Shivajinagar, Pune' },
+    scoreBreakdown: { skillFit: 100, availability: 90, location: 88, interest: 75 },
+    explanation: 'Score 91.5/100 — Strong skill alignment (100%), fully available, nearby location.',
+    status: 'suggested',
+  },
+  {
+    id: 'match_002', volunteerId: 'vol_004', volunteerName: 'Ramesh Patel',
+    score: 84.0, volunteerRating: 4.8, completedTasks: 23, responseRate: 94.5,
+    volunteerSkills: ['medical', 'first-aid', 'counseling'],
+    volunteerLocation: { address: 'Deccan, Pune' },
+    scoreBreakdown: { skillFit: 100, availability: 80, location: 72, interest: 60 },
+    explanation: 'Score 84.0/100 — Strong skill alignment, fully available.',
+    status: 'suggested',
+  },
+  {
+    id: 'match_003', volunteerId: 'vol_003', volunteerName: 'Priya Sharma',
+    score: 72.0, volunteerRating: 4.6, completedTasks: 17, responseRate: 88,
+    volunteerSkills: ['medical', 'psychology'],
+    volunteerLocation: { address: 'Kothrud, Pune' },
+    scoreBreakdown: { skillFit: 67, availability: 80, location: 70, interest: 50 },
+    explanation: 'Score 72.0/100 — Partial skill match, fully available.',
+    status: 'suggested',
+  },
+];

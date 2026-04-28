@@ -1,0 +1,27 @@
+{
+  "name": "volunteermatch-ai",
+  "version": "1.0.0",
+  "description": "VolunteerMatch AI - Full Stack Hackathon Project",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "coordinator-dashboard",
+    "volunteer-app"
+  ],
+  "scripts": {
+    "dev:backend": "cd backend && npm run dev",
+    "dev:dashboard": "cd coordinator-dashboard && npm start",
+    "dev:app": "cd volunteer-app && npm start",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:dashboard\"",
+    "test": "cd backend && npm test",
+    "install:all": "cd backend && npm install && cd ../coordinator-dashboard && npm install && cd ../volunteer-app && npm install",
+    "build:dashboard": "cd coordinator-dashboard && npm run build",
+    "deploy": "cd backend && npm run deploy"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

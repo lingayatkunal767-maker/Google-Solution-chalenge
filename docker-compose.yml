@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+  # Firebase Emulators (Auth + Firestore)
+  firebase-emulator:
+    image: node:18-alpine
+    working_dir: /app
+    volumes:
+      - ./backend:/app
+    ports:
+      - "9099:9099"   # Auth emulator
+      - "8080:8080"   # Firestore emulator
+      - "5001:5001"   # Functions emulator
+      - "4000:4000"   # Emulator UI
+    environment:
+      - FIRESTORE_EMULATOR_HOST=localhost:8080
+      - FIREBASE_AUTH_EMULATOR_HOST=localhost:9099
+    command: >
+      sh -c "npm install -g firebase-tools &&
+             firebase emulators:start --only auth,firestore,functions --project volunteermatch-ai"
+
+  # Backend API
+  backend:
+    image: node:18-alpine
+    working_dir: /app
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=development
+      - PORT=3001
+      - FIRESTORE_EMULATOR_HOST=firebase-emulator:8080
+      - FIREBASE_AUTH_EMULATOR_HOST=firebase-emulator:9099
+      - FIREBASE_PROJECT_ID=volunteermatch-ai
+      - ALLOWED_ORIGINS=http://localhost:3000,http://localhost:3002
+    depends_on:
+      - firebase-emulator
+    command: npm run dev
+
+  # Coordinator Dashboard
+  coordinator-dashboard:
+    image: node:18-alpine
+    working_dir: /app
+    volumes:
+      - ./coordinator-dashboard:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost:3001
+      - REACT_APP_FIREBASE_PROJECT_ID=volunteermatch-ai
+    depends_on:
+      - backend
+    command: npm start
+
+  # Volunteer App
+  volunteer-app:
+    image: node:18-alpine
+    working_dir: /app
+    volumes:
+      - ./volunteer-app:/app
+      - /app/node_modules
+    ports:
+      - "3002:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost:3001
+      - REACT_APP_FIREBASE_PROJECT_ID=volunteermatch-ai
+    depends_on:
+      - backend
+    command: npm start

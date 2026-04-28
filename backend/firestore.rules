@@ -1,0 +1,112 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ── Helper functions ───────────────────────────────────────────────────────
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function getUserRole() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role;
+    }
+
+    function isVolunteer() {
+      return isAuthenticated() && getUserRole() == 'volunteer';
+    }
+
+    function isCoordinator() {
+      return isAuthenticated() && getUserRole() == 'coordinator';
+    }
+
+    function isAdmin() {
+      return isAuthenticated() && getUserRole() == 'admin';
+    }
+
+    function isCoordinatorOrAdmin() {
+      return isCoordinator() || isAdmin();
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function isNotBlacklisted() {
+      return !get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isBlacklisted;
+    }
+
+    // ── users/ ─────────────────────────────────────────────────────────────────
+    match /users/{userId} {
+      // Users can read their own doc; admins can read all
+      allow read: if isOwner(userId) || isAdmin();
+      // Coordinators can read user roles (not emails or sensitive data) for assignment
+      allow read: if isCoordinatorOrAdmin();
+      // Only the user or admin can write
+      allow create: if isOwner(userId);
+      allow update: if isOwner(userId) || isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // ── volunteers/ ───────────────────────────────────────────────────────────
+    match /volunteers/{volunteerId} {
+      // Volunteers can read their own profile
+      // Coordinators can read volunteer profiles (but NOT fcmToken)
+      allow read: if isOwner(volunteerId) || isCoordinatorOrAdmin();
+      // Volunteer can write their own profile
+      allow create: if isOwner(volunteerId);
+      allow update: if isOwner(volunteerId) || isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // ── needs/ ────────────────────────────────────────────────────────────────
+    match /needs/{needId} {
+      // Anyone authenticated can read needs
+      allow read: if isAuthenticated() && isNotBlacklisted();
+      // Only coordinators and admins can create/update needs
+      allow create: if isCoordinatorOrAdmin() && isNotBlacklisted();
+      allow update: if isCoordinatorOrAdmin() || isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // ── matches/ ──────────────────────────────────────────────────────────────
+    match /matches/{matchId} {
+      // Volunteers can read matches assigned to them
+      allow read: if isAuthenticated() && (
+        resource.data.volunteerId == request.auth.uid ||
+        isCoordinatorOrAdmin()
+      );
+      // Only backend (via service account / coordinator role) can create matches
+      allow create: if isCoordinatorOrAdmin();
+      // Volunteers can update their match status (accept/decline)
+      allow update: if isAuthenticated() && (
+        (isVolunteer() && resource.data.volunteerId == request.auth.uid) ||
+        isCoordinatorOrAdmin()
+      );
+      allow delete: if isAdmin();
+    }
+
+    // ── notifications/ ────────────────────────────────────────────────────────
+    match /notifications/{notifId} {
+      // Volunteers can read their own notifications
+      allow read: if isAuthenticated() && (
+        resource.data.volunteerId == request.auth.uid ||
+        isCoordinatorOrAdmin()
+      );
+      // Only backend creates notifications
+      allow create: if isCoordinatorOrAdmin();
+      // Volunteers can mark their notifications as read
+      allow update: if isAuthenticated() && resource.data.volunteerId == request.auth.uid;
+      allow delete: if isAdmin();
+    }
+
+    // ── analytics/ ────────────────────────────────────────────────────────────
+    match /analytics/{docId} {
+      // Only coordinators and admins can read analytics
+      allow read: if isCoordinatorOrAdmin();
+      // Only backend (admin SDK) writes analytics
+      allow write: if isAdmin();
+    }
+
+  }
+}

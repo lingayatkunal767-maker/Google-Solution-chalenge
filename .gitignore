@@ -1,0 +1,51 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Environment secrets - NEVER commit these
+.env
+.env.local
+.env.production
+backend/.env
+coordinator-dashboard/.env
+volunteer-app/.env
+
+# Firebase service account - NEVER commit this
+serviceAccountKey.json
+*service-account*.json
+
+# Build outputs
+build/
+dist/
+.next/
+out/
+
+# Firebase
+.firebase/
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+
+# Testing
+coverage/
+.nyc_output
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Runtime
+.cache/
+tmp/
